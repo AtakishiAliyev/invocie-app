@@ -26,3 +26,48 @@
         }
     }
 }
+
+.custom-select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: $clr-white;
+    background-color: $clr-bg-light;
+    border-radius: 5px;
+    height: 5rem;
+    cursor: pointer;
+    position: relative;
+    
+    &:hover {
+        border: 1px solid $clr-purple;
+    }
+
+    .select-value {
+        padding: 0 1.8rem;
+    }
+
+    .select-dropdown {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        background-color: $clr-bg-light;
+        width: 100%;
+        margin-top: 5px;
+        border-radius: 5px;
+        z-index: 2;
+        
+        .select-option {
+            padding: 1.2rem 1.8rem;
+            border-bottom: 1px solid $clr-border;
+
+            &:hover {
+                color: $clr-purple;
+            }
+        }
+    }
+
+    .active {
+        display: flex;
+    }
+}

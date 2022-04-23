@@ -26,10 +26,85 @@ a {
   text-decoration: none;
 }
 
+.form-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+}
+
+.form-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.4;
+  display: none;
+  z-index: 1;
+}
+
+.form-container {
+  width: 600px;
+  height: 100vh;
+  overflow-y: scroll;
+  background-color: #141625;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  padding: 25px 25px;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  opacity: 0;
+  -webkit-transition: 0.35s;
+  transition: 0.35s;
+}
+
+.form-container::-webkit-scrollbar {
+  display: none;
+}
+
+.form-container .form-element {
+  margin-bottom: 25px;
+}
+
 .invoice-form-title {
   font-size: 1.4rem;
   font-weight: 700;
   color: #7c5dfa;
+  margin-bottom: 1.5rem;
+}
+
+.form-visible {
+  width: 100%;
+}
+
+.form-visible .form-overlay {
+  display: block;
+}
+
+.form-visible .form-container {
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+  opacity: 1;
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.adress-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 20px;
 }
 
 .form-element {
@@ -64,6 +139,63 @@ a {
 
 .form-element input:focus {
   border-color: #7c5dfa;
+}
+
+.custom-select {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #fff;
+  background-color: #1e2139;
+  border-radius: 5px;
+  height: 5rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.custom-select:hover {
+  border: 1px solid #7c5dfa;
+}
+
+.custom-select .select-value {
+  padding: 0 1.8rem;
+}
+
+.custom-select .select-dropdown {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: 100%;
+  background-color: #1e2139;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+.custom-select .select-dropdown .select-option {
+  padding: 1.2rem 1.8rem;
+  border-bottom: 1px solid #252945;
+}
+
+.custom-select .select-dropdown .select-option:hover {
+  color: #7c5dfa;
+}
+
+.custom-select .active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .btn {
