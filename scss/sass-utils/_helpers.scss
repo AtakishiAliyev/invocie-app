@@ -13,6 +13,7 @@ body {
     font-size: $fs-regular;
     font-weight: $fw-400;
     line-height: 2.4rem;
+    background-color: $clr-bg;
 }
 
 img {
@@ -21,4 +22,10 @@ img {
 
 a {
     text-decoration: none;
+}
+
+.invoice-form-title {
+    font-size: $fs-medium;
+    font-weight: $fw-700;
+    color: $clr-purple;
 }
