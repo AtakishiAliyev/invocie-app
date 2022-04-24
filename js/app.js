@@ -15,11 +15,12 @@ select.forEach(select => {
     select.addEventListener('click', function() {
         const selected = this;
         selected.querySelector(".select-dropdown").classList.toggle('active');
+        selected.querySelector(".select-value i").classList.toggle('active');
         const options = selected.querySelectorAll('.select-option');
         
         options.forEach(option => {
             option.addEventListener('click', function() {
-                selected.querySelector(".select-value").innerText = this.innerText;
+                selected.querySelector(".select-value span").innerText = this.innerText;
             })
         })
     })
