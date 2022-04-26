@@ -71,19 +71,14 @@ a {
     color: $clr-purple;
     margin-bottom: 1.5rem;
 }
-.invoice-form-title2 {
-    font-size:1.6rem;
-    font-weight: $fw-700;
-    color: $clr-text-gray;
-    margin-bottom: 1.5rem;
-}
+
 .form-visible {
     width: 100%;
-    
+
     .form-overlay {
         display: block;
     }
-    
+
     .form-container {
         transform: translateX(0%);
         opacity: 1;
@@ -104,26 +99,29 @@ a {
 }
 
 .item-data,
-.item-calculate-data{
+.item-calculate-data {
     display: flex;
     gap: 20px;
 }
-.item-calculate-data{
+
+.item-calculate-data {
     width: 60%;
 }
-.delete{
-    border:0;
+
+.delete {
+    border: 0;
     outline: 0;
-    color:$clr-white;
+    color: $clr-white;
     font-size: 1.5rem;
     background-color: transparent;
     cursor: pointer;
-   
-    &:hover{
-        color:$clr-purple;
+
+    &:hover {
+        color: $clr-purple;
     }
 }
-.add-item{
+
+.add-item {
     width: 100%;
     border: 0;
     outline: 0;
@@ -134,7 +132,7 @@ a {
     justify-content: center;
     cursor: pointer;
 
-    i{
-        margin-right:3px;
+    i {
+        margin-right: 3px;
     }
 }
