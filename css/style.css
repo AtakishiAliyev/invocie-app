@@ -76,6 +76,13 @@ a {
   margin-bottom: 1.5rem;
 }
 
+.invoice-form-title2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #5c8cd3;
+  margin-bottom: 1.5rem;
+}
+
 .form-visible {
   width: 100%;
 }
@@ -105,6 +112,51 @@ a {
       -ms-flex-align: center;
           align-items: center;
   gap: 20px;
+}
+
+.item-data,
+.item-calculate-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+}
+
+.item-calculate-data {
+  width: 60%;
+}
+
+.delete {
+  border: 0;
+  outline: 0;
+  color: #fff;
+  font-size: 1.5rem;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.delete:hover {
+  color: #7c5dfa;
+}
+
+.add-item {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1.4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+}
+
+.add-item i {
+  margin-right: 3px;
 }
 
 .form-element {

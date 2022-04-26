@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>Invoice app</title>
 </head>
 
@@ -78,7 +78,7 @@
                 <div class="form-element">
                     <label for="payment_terms">Payment Terms</label>
                     <div class="custom-select">
-                        <div class="select-value"><span>Net 7 Days</span> <i class="fa-solid fa-angle-down"></i> </div>
+                        <div class="select-value"><span>Net 7 Days</span> i class="fa-solid fa-angle-down"></i> </div>
                         <div class="select-dropdown">
                             <div class="select-option">Net 1 Day</div>
                             <div class="select-option">Net 7 Days</div>
@@ -88,6 +88,38 @@
                     </div>
                 </div>
 
+                <div class="item-section">
+                <h2 class="invoice-form-title2">Item List</h2>
+                <div class="item-datalist">
+                <div class="item-data">
+                <div class="form-element">
+                    <label for="item">Item Name</label>
+                    <input type="text" id="item" name="item" value="new Item">
+                </div>
+                <div class="item-calculate-data">
+                    <div class="form-element">
+                        <label for="qty">Qty.</label>
+                        <input type="text" id="qty" name="qty" value="1">
+                    </div> 
+                    <div class="form-element">
+                        <label for="price">Price</label>
+                        <input type="text" id="price" name="price" value="0">
+                    </div> 
+                    <div class="form-element">
+                        <label for="total">Total</label>
+                        <input type="text" id="total" name="total" value="0.00">
+                    </div>
+                    <button type="button" class="delete">
+                        <i class="fa-solid fa-trash"></i>
+                    </button> 
+                </div>
+            </div>
+            </div>
+            <button type="button" class="add-item">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add New Item</span>
+            </button>
+            </div>
             </form>
         </div>
     </div>
