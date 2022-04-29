@@ -55,4 +55,4 @@ function removeItem() {
     })
 }
 
-console.log('clear');
+console.log('clear 2');
