@@ -54,3 +54,5 @@ function removeItem() {
         })
     })
 }
+
+console.log('clear');
