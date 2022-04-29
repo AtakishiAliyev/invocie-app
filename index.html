@@ -13,77 +13,77 @@
 
 <body>
 
-    <button style="margin: 100px" class="btn btn-main"><i class="fa-solid fa-plus"></i> New Invoice</button>
+    <button style="margin: 100px" class="btn btn-main" id="openForm"><i class="fa-solid fa-plus"></i> New Invoice</button>
 
     <div class="form-wrapper">
         <div class="form-overlay"></div>
         <div class="form-container">
-            <form id="invoice-form">
+            <form id="form">
                 <h2 class="title">New Invoice</h2>
                 <p class="invoice-form-title">Billing</p>
                 <div class="form-element">
-                    <label for="sender_street_adress">Street Address</label>
+                    <label for="sender_street_adress">Street Address <span >can't be empty</span></label>
                     <input type="text" id="sender_street_adress" name="sender_street_adress">
                 </div>
                 <div class="adress-data">
                     <div class="form-element">
-                        <label for="sender_city">City</label>
+                        <label for="sender_city">City <span >can't be empty</span></label>
                         <input type="text" id="sender_city" name="sender_city">
                     </div>
                     <div class="form-element">
-                        <label for="sender_post_code">Post Code</label>
+                        <label for="sender_post_code">Post Code <span >can't be empty</span></label>
                         <input type="text" id="sender_post_code" name="sender_post_code">
                     </div>
                     <div class="form-element">
-                        <label for="sender_country">Country</label>
+                        <label for="sender_country">Country <span >can't be empty</span></label>
                         <input type="text" id="sender_country" name="sender_country">
                     </div>
                 </div>
                 <p class="invoice-form-title">Bill to</p>
                 <div class="form-element">
-                    <label for="client_name">Client's Name</label>
-                    <input type="text" id="client_name" name="client_name">
+                    <label for="userName">Client's Name <span >can't be empty</span></label>
+                    <input type="text" id="userName" name="userName">
                 </div>
                 <div class="form-element">
-                    <label for="client_email">Client's Email</label>
-                    <input type="text" id="client_email" name="client_email">
+                    <label for="userEmail">Client's Email <span >can't be empty</span></label>
+                    <input type="text" id="userEmail" name="userEmail">
                 </div>
                 <div class="form-element">
-                    <label for="client_adress">Street Address</label>
+                    <label for="client_adress">Street Address <span >can't be empty</span></label>
                     <input type="text" id="client_adress" name="client_adress">
                 </div>
                 <div class="adress-data">
                     <div class="form-element">
-                        <label for="client_city">City</label>
+                        <label for="client_city">City <span >can't be empty</span></label>
                         <input type="text" id="client_city" name="client_city">
                     </div>
                     <div class="form-element">
-                        <label for="client_post_code">Post Code</label>
+                        <label for="client_post_code">Post Code <span >can't be empty</span></label>
                         <input type="text" id="client_post_code" name="client_post_code">
                     </div>
                     <div class="form-element">
-                        <label for="client_country">Country</label>
+                        <label for="client_country">Country <span >can't be empty</span></label>
                         <input type="text" id="client_country" name="client_country">
                     </div>
                 </div>
                 <div class="form-element">
-                    <label for="invoice_date">Invoice Date</label>
-                    <input type="date" id="invoice_date" name="invoice_date">
+                    <label for="invoice_date">Invoice Date </label>
+                    <input type="date" id="invoice_date" name="invoice_date" value="">
                 </div>
                 <div class="form-element">
-                    <label for="description">Project Description</label>
+                    <label for="description">Project Description <span >can't be empty</span></label>
                     <input type="text" id="description" name="description">
                 </div>
 
                 <div class="form-element">
-                    <label for="payment_terms">Payment Terms</label>
-                    <div class="custom-select">
-                        <div class="select-value"><span>Net 7 Days</span> <i class="fa-solid fa-angle-down"></i> </div>
+                    <label for="payment_terms">Payment Terms </label>
+                    <div class="custom-select" id="payment_terms">
+                        <div class="select-value"><span data-day="1">Net 1 Day</span> <i class="fa-solid fa-angle-down"></i> </div>
                         <div class="select-dropdown">
-                            <div class="select-option">Net 1 Day</div>
-                            <div class="select-option">Net 7 Days</div>
-                            <div class="select-option">Net 14 Days</div>
-                            <div class="select-option">Net 30 Days</div>
+                            <div class="select-option" data-day="1">Net 1 Day</div>
+                            <div class="select-option" data-day="7">Net 7 Days</div>
+                            <div class="select-option" data-day="14">Net 14 Days</div>
+                            <div class="select-option" data-day="30">Net 30 Days</div>
                         </div>
                     </div>
                 </div>
@@ -106,8 +106,8 @@
                                     <input type="text" id="price" name="price" value="0">
                                 </div>
                                 <div class="form-element">
-                                    <label for="total">Total</label>
-                                    <input type="text" id="total" name="total" value="0.00" readonly>
+                                    <label for="total">Total </label>
+                                    <input type="text" id="total" name="total" value="0.00">
                                 </div>
                                 <button type="button" class="delete">
                                     <i class="fa-solid fa-trash"></i>
@@ -121,7 +121,7 @@
                     </button>
                 </div>
                 <div class="form-btns">
-                    <button type="button">Discard</button>
+                    <button type="submit" class="btn btn-main">Save & Send</button>
                 </div>
             </form>
         </div>
