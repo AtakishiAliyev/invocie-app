@@ -55,3 +55,4 @@ function removeItem() {
     })
 }
 
+console.log(1)
