@@ -124,7 +124,6 @@ function getInvoice() {
     }
 
     getItemsTotal()
-
 }
 
 function checkEmpty(inputList) {
