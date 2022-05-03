@@ -100,7 +100,6 @@ function getInvoice() {
         description
     ]);
 
-
     checkEmailInput(userEmail);
 
     if (isValid) {
@@ -123,7 +122,6 @@ function getInvoice() {
         localStorage.setItem('data', JSON.stringify(data))
         formWrapper.classList.remove('form-visible');
     }
-
 
     getItemsTotal()
 
@@ -213,10 +211,8 @@ function getItemValue() {
 function calculateAll() {
     const qty = document.querySelectorAll('#qty');
     const price = document.querySelectorAll('#price');
-
     calcTotal(qty, price);
     calcTotal(price, qty);
-
 }
 
 function calcTotal(a, b) {
