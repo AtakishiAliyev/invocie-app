@@ -26,6 +26,12 @@ a {
   text-decoration: none;
 }
 
+.container {
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
 .form-wrapper {
   position: absolute;
   top: 0;
@@ -163,6 +169,21 @@ a {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+.invoice_item {
+  gap: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.invoice_item .item {
+  background-color: crimson;
 }
 
 .form-element {

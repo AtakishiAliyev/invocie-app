@@ -4,13 +4,16 @@ const overlay = document.querySelector('.form-overlay');
 const select = document.querySelectorAll('.custom-select');
 const form = document.querySelector('#form');
 const invoice_date = document.querySelector('#invoice_date');
+const options = document.querySelectorAll('.select-option');
+let cloneItem = document.querySelector(".item-data").cloneNode(true);
+let itemParent = document.querySelector(".item-datalist");
 let addItemBtn = document.querySelector(".add-item");
 let isValid = true;
 
 const data = localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : [];
-
-const today = new Date();
-invoice_date.value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+const date = new Date();
+const today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+invoice_date.value = today;
 
 openForm.addEventListener('click', () => {
     formWrapper.classList.add('form-visible');
@@ -20,12 +23,19 @@ overlay.addEventListener('click', () => {
     formWrapper.classList.remove('form-visible');
 })
 
+window.addEventListener('load', () => {
+    const items = JSON.parse(localStorage.getItem('data'));
+
+    items.forEach(item => {
+        createItemBlock(item)
+    })
+})
+
 select.forEach(select => {
     select.addEventListener('click', function () {
         const selected = this;
         selected.querySelector(".select-dropdown").classList.toggle('active');
         selected.querySelector(".select-value i").classList.toggle('active');
-        const options = selected.querySelectorAll('.select-option');
 
         options.forEach(option => {
             option.addEventListener('click', function () {
@@ -41,7 +51,6 @@ select.forEach(select => {
 addItemBtn.addEventListener("click", addItem);
 
 function addItem() {
-    let itemParent = document.querySelector(".item-datalist");
     let item = document.querySelector(".item-data").cloneNode(true);
     item.querySelector("#item").value = "New Item";
     item.querySelector("#qty").value = "0";
@@ -57,9 +66,7 @@ function removeItem() {
     let deleteItemBtn = document.querySelectorAll(".delete");
     deleteItemBtn.forEach(del => {
         del.addEventListener("click", function () {
-            console.log(document.querySelectorAll(".delete").length)
             if (document.querySelectorAll(".delete").length > 1) {
-                console.log(del)
                 del.closest(".item-data").remove();
             }
         })
@@ -121,6 +128,10 @@ function getInvoice() {
         data.push(result);
         localStorage.setItem('data', JSON.stringify(data))
         formWrapper.classList.remove('form-visible');
+
+        emptyForm();
+
+        createItemBlock(result);
     }
 
     getItemsTotal()
@@ -179,12 +190,14 @@ function getInvoiceValues(inputList) {
             obj.paymentTerms = Number(paymentTerms);
         }
     })
-
+    
     const items = getItemValue();
     obj.items = items;
     const total = getItemsTotal();
     obj.total = total;
-
+    const id = Math.random().toString(36).slice(2, 8).toUpperCase();
+    obj.id = id;
+    
     return obj
 }
 
@@ -236,3 +249,48 @@ function getItemsTotal() {
 }
 
 calculateAll();
+
+function emptyForm() {
+    let allItem = document.querySelectorAll(".item-data");
+    form.reset();
+    invoice_date.value = today;
+    document.querySelector(".select-value span").innerText = options[0].innerText;
+    allItem.forEach(item => {
+        item.remove();
+    });
+    itemParent.append(cloneItem);
+}
+
+function createItemBlock(data) {
+    const invoice_item = document.querySelector('.invoice_item');
+
+    const item = document.createElement('a');
+    item.classList.add('item');
+
+
+    const id = document.createElement('div');
+    id.classList.add('id');
+    id.innerText = data.id;
+
+    const date = document.createElement('div');
+    date.classList.add('date');
+    date.innerText = data.invoice_date;
+
+    const name = document.createElement('div');
+    name.classList.add('name');
+    name.innerText = data.userName;
+
+    const total = document.createElement('div');
+    total.classList.add('total');
+    total.innerText = data.total;
+
+    const status = document.createElement('div');
+    status.classList.add('status');
+    status.innerText = data.status;
+
+    item.append(id, date, name, total, status);
+    const href = window.location.href;
+    item.href = `${href}/invoice/${data.id}`;
+    
+    invoice_item.append(item);
+}
