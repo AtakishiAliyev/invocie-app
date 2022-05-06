@@ -264,7 +264,7 @@ function emptyForm() {
 function createItemBlock(data) {
     const invoice_item = document.querySelector('.invoice_item');
 
-    const item = document.createElement('a');
+    const item = document.createElement('div');
     item.classList.add('item');
 
 
@@ -289,8 +289,6 @@ function createItemBlock(data) {
     status.innerText = data.status;
 
     item.append(id, date, name, total, status);
-    const href = window.location.href;
-    item.href = `${href}/invoice/${data.id}`;
     
     invoice_item.append(item);
 }
