@@ -29,6 +29,8 @@ window.addEventListener('load', () => {
     items.forEach(item => {
         createItemBlock(item)
     })
+
+    getUrl()
 })
 
 select.forEach(select => {
@@ -190,14 +192,14 @@ function getInvoiceValues(inputList) {
             obj.paymentTerms = Number(paymentTerms);
         }
     })
-    
+
     const items = getItemValue();
     obj.items = items;
     const total = getItemsTotal();
     obj.total = total;
     const id = Math.random().toString(36).slice(2, 8).toUpperCase();
     obj.id = id;
-    
+
     return obj
 }
 
@@ -262,33 +264,62 @@ function emptyForm() {
 }
 
 function createItemBlock(data) {
-    const invoice_item = document.querySelector('.invoice_item');
+    const invoice_items = document.querySelector('.invoice_items');
 
-    const item = document.createElement('div');
-    item.classList.add('item');
+    const item =
+        `<div class="item" data-id="${data.id}">
+        <div class="id">
+            <span>#</span>
+            <p>${data.id}</p>
+        </div>
+        <div class="date">
+            <p>${data.invoice_date}</p>
+        </div>
+        <div class="name">
+            <p>${data.userName}</p>
+        </div>
+        <div class="total">
+            <p>$${data.total}</p>
+        </div>
+        <div class="status">
+            <div class="status_block ${data.status}">
+                <span></span>
+                <p>${data.status}</p>
+            </div>
+            <img class="arrow-image" src="https://invoice-app-flame.vercel.app/assets/icon-arrow-right.svg">
+        </div>
+    </div>`;
+
+    if (invoice_items) { invoice_items.innerHTML += item; }
+}
 
 
-    const id = document.createElement('div');
-    id.classList.add('id');
-    id.innerText = data.id;
+// ! Create URL 
+const container = document.querySelector('.container');
+const query = new URLSearchParams(window.location.search);
+const id = query.get('id');
 
-    const date = document.createElement('div');
-    date.classList.add('date');
-    date.innerText = data.invoice_date;
+if (id) {
 
-    const name = document.createElement('div');
-    name.classList.add('name');
-    name.innerText = data.userName;
+    const result = data.find(item => {
+        if (item.id == id) {
+            return true
+        }
+    })
 
-    const total = document.createElement('div');
-    total.classList.add('total');
-    total.innerText = data.total;
+    console.log(result);
+    container.innerHTML = result.id;
 
-    const status = document.createElement('div');
-    status.classList.add('status');
-    status.innerText = data.status;
+    const details = ``;
+}
 
-    item.append(id, date, name, total, status);
-    
-    invoice_item.append(item);
+function getUrl() {
+    const invoiceItem = document.querySelectorAll('.item');
+    invoiceItem.forEach((item) => {
+        item.addEventListener('click', () => {
+            const id = item.getAttribute('data-id');
+            console.log(id);
+            window.location += `?id=${id}`;
+        })
+    })
 }

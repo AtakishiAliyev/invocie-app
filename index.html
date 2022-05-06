@@ -13,16 +13,6 @@
 
 <body>
 
-    <button style="margin: 100px" class="btn btn-main" id="openForm"><i class="fa-solid fa-plus"></i> New Invoice</button>
-
-    <div class="container">
-        <div class="invoice-items__block">
-            <div class="invoice_item">
-                
-            </div>
-        </div>
-    </div>
-
     <div class="form-wrapper">
         <div class="form-overlay"></div>
         <div class="form-container">
@@ -30,47 +20,47 @@
                 <h2 class="title">New Invoice</h2>
                 <p class="invoice-form-title">Billing</p>
                 <div class="form-element">
-                    <label for="sender_street_adress">Street Address <span >can't be empty</span></label>
+                    <label for="sender_street_adress">Street Address <span>can't be empty</span></label>
                     <input type="text" id="sender_street_adress" name="sender_street_adress">
                 </div>
                 <div class="adress-data">
                     <div class="form-element">
-                        <label for="sender_city">City <span >can't be empty</span></label>
+                        <label for="sender_city">City <span>can't be empty</span></label>
                         <input type="text" id="sender_city" name="sender_city">
                     </div>
                     <div class="form-element">
-                        <label for="sender_post_code">Post Code <span >can't be empty</span></label>
+                        <label for="sender_post_code">Post Code <span>can't be empty</span></label>
                         <input type="text" id="sender_post_code" name="sender_post_code">
                     </div>
                     <div class="form-element">
-                        <label for="sender_country">Country <span >can't be empty</span></label>
+                        <label for="sender_country">Country <span>can't be empty</span></label>
                         <input type="text" id="sender_country" name="sender_country">
                     </div>
                 </div>
                 <p class="invoice-form-title">Bill to</p>
                 <div class="form-element">
-                    <label for="userName">Client's Name <span >can't be empty</span></label>
+                    <label for="userName">Client's Name <span>can't be empty</span></label>
                     <input type="text" id="userName" name="userName">
                 </div>
                 <div class="form-element">
-                    <label for="userEmail">Client's Email <span >can't be empty</span></label>
+                    <label for="userEmail">Client's Email <span>can't be empty</span></label>
                     <input type="text" id="userEmail" name="userEmail">
                 </div>
                 <div class="form-element">
-                    <label for="client_adress">Street Address <span >can't be empty</span></label>
+                    <label for="client_adress">Street Address <span>can't be empty</span></label>
                     <input type="text" id="client_adress" name="client_adress">
                 </div>
                 <div class="adress-data">
                     <div class="form-element">
-                        <label for="client_city">City <span >can't be empty</span></label>
+                        <label for="client_city">City <span>can't be empty</span></label>
                         <input type="text" id="client_city" name="client_city">
                     </div>
                     <div class="form-element">
-                        <label for="client_post_code">Post Code <span >can't be empty</span></label>
+                        <label for="client_post_code">Post Code <span>can't be empty</span></label>
                         <input type="text" id="client_post_code" name="client_post_code">
                     </div>
                     <div class="form-element">
-                        <label for="client_country">Country <span >can't be empty</span></label>
+                        <label for="client_country">Country <span>can't be empty</span></label>
                         <input type="text" id="client_country" name="client_country">
                     </div>
                 </div>
@@ -79,14 +69,15 @@
                     <input type="date" id="invoice_date" name="invoice_date" value="">
                 </div>
                 <div class="form-element">
-                    <label for="description">Project Description <span >can't be empty</span></label>
+                    <label for="description">Project Description <span>can't be empty</span></label>
                     <input type="text" id="description" name="description">
                 </div>
 
                 <div class="form-element">
                     <label for="payment_terms">Payment Terms </label>
                     <div class="custom-select" id="payment_terms">
-                        <div class="select-value"><span data-day="1">Net 1 Day</span> <i class="fa-solid fa-angle-down"></i> </div>
+                        <div class="select-value"><span data-day="1">Net 1 Day</span> <i
+                                class="fa-solid fa-angle-down"></i> </div>
                         <div class="select-dropdown">
                             <div class="select-option" data-day="1">Net 1 Day</div>
                             <div class="select-option" data-day="7">Net 7 Days</div>
@@ -134,6 +125,45 @@
             </form>
         </div>
     </div>
+
+    <div class="container">
+        <div class="head">
+            <div class="head-title">
+                <h2>Invoices</h2>
+                <p>There are 7 total invoices</p>
+            </div>
+            <div class="invoice-actions">
+                <button class="btn btn-main" id="openForm">
+                    <i class="fa-solid fa-plus"></i>
+                    New Invoice
+                </button>
+            </div>
+        </div>
+
+        <div class="invoice-list">
+            <div class="invoice_items"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="invoice-details">
+            <div class="head">
+                <div class="status">
+                    <p>Status</p>
+                    <div class="status_block pending">
+                        <span></span>
+                        <p>pending</p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-main">Mark as Paid</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="js/app.js"></script>
 </body>

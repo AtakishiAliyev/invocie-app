@@ -1,0 +1,33 @@
+.invoice-details {
+    
+    .head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $clr-bg-light;
+        padding: 3rem;
+        border-radius: 8px;  
+        
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+
+            p {
+                font-size: 1.4rem;
+            }
+
+            .status_block {
+                width: 100px;
+            }
+        }
+
+        .buttons {
+            & > .btn + .btn {
+                margin-left: 15px;
+            }
+        }
+    }
+
+    
+}

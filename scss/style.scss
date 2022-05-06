@@ -3,10 +3,13 @@
 
 // ! SASS Utils
 @import '../scss/sass-utils/variables';
-@import '../scss/sass-utils/mixins';
 @import '../scss/sass-utils/helpers';
-
 
 // ! Components
 @import '../scss/components/form-elements';
 @import '../scss/components/buttons';
+
+// ! Layouts
+@import '../scss/layouts/form';
+@import '../scss/layouts/home';
+@import '../scss/layouts/details';
