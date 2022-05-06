@@ -307,10 +307,24 @@ if (id) {
         }
     })
 
-    console.log(result);
-    container.innerHTML = result.id;
-
-    const details = ``;
+    const details = `<div class="invoice-details">
+            <div class="head">
+                <div class="status">
+                    <p>Status</p>
+                    <div class="status_block ${result.status}">
+                        <span></span>
+                        <p>${result.status}</p>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-main">Mark as Paid</button>
+                </div>
+            </div>
+        </div>`;
+        
+    container.innerHTML = details;
 }
 
 function getUrl() {
