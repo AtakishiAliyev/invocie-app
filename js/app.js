@@ -5,15 +5,31 @@ const select = document.querySelectorAll('.custom-select');
 const form = document.querySelector('#form');
 const invoice_date = document.querySelector('#invoice_date');
 const options = document.querySelectorAll('.select-option');
+const container = document.querySelector('.container');
+const query = new URLSearchParams(window.location.search);
+const id = query.get('id');
 let cloneItem = document.querySelector(".item-data").cloneNode(true);
 let itemParent = document.querySelector(".item-datalist");
 let addItemBtn = document.querySelector(".add-item");
 let isValid = true;
+
+// * All data variable
 const data = localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : [];
 
+// * Return today date 
 const date = new Date();
 const today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
 invoice_date.value = today;
+
+window.addEventListener('load', () => {
+    const items = JSON.parse(localStorage.getItem('data'));
+
+    items.forEach(item => {
+        createItemBlock(item)
+    })
+
+    getUrl();
+})
 
 openForm.addEventListener('click', () => {
     formWrapper.classList.add('form-visible');
@@ -23,16 +39,7 @@ overlay.addEventListener('click', () => {
     formWrapper.classList.remove('form-visible');
 })
 
-window.addEventListener('load', () => {
-    const items = JSON.parse(localStorage.getItem('data'));
-
-    items.forEach(item => {
-        createItemBlock(item)
-    })
-
-    getUrl()
-})
-
+// * Custom select 
 select.forEach(select => {
     select.addEventListener('click', function () {
         const selected = this;
@@ -49,7 +56,7 @@ select.forEach(select => {
     })
 })
 
-// Add Item
+// * Form add new item
 addItemBtn.addEventListener("click", addItem);
 
 function addItem() {
@@ -63,7 +70,7 @@ function addItem() {
     removeItem();
 }
 
-// Remove Item
+//  * Form remove item
 function removeItem() {
     let deleteItemBtn = document.querySelectorAll(".delete");
     deleteItemBtn.forEach(del => {
@@ -75,12 +82,15 @@ function removeItem() {
     })
 }
 
+// * Form submit event
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     getInvoice();
+    getUrl();
     console.log(JSON.stringify(data, null, 2));
 })
 
+// * Get form data
 function getInvoice() {
     const sender_street_adress = document.querySelector('#sender_street_adress');
     const sender_city = document.querySelector('#sender_city');
@@ -134,11 +144,13 @@ function getInvoice() {
         emptyForm();
 
         createItemBlock(result);
+        getInvoiceCount();
     }
 
     getItemsTotal()
 }
 
+// * Check empty input
 function checkEmpty(inputList) {
     inputList.forEach(input => {
         if (input.value.trim().length == 0) {
@@ -154,6 +166,7 @@ function isEmail(email) {
     return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
 
+// * Check email input
 function checkEmailInput(input) {
     {
         if (input.value.trim().length == 0) {
@@ -173,6 +186,7 @@ function checkEmailInput(input) {
     }
 }
 
+// * Get form elements values create object
 function getInvoiceValues(inputList) {
     const obj = {};
     const senderAddress = {};
@@ -203,6 +217,7 @@ function getInvoiceValues(inputList) {
     return obj
 }
 
+// * Get form items values
 function getItemValue() {
     const itemList = document.querySelectorAll('.item-data');
     const items = [];
@@ -222,6 +237,7 @@ function getItemValue() {
     return items
 }
 
+//  * Calculate form item total
 function calculateAll() {
     const qty = document.querySelectorAll('#qty');
     const price = document.querySelectorAll('#price');
@@ -252,6 +268,7 @@ function getItemsTotal() {
 
 calculateAll();
 
+// * Reset form data
 function emptyForm() {
     let allItem = document.querySelectorAll(".item-data");
     form.reset();
@@ -263,6 +280,7 @@ function emptyForm() {
     itemParent.append(cloneItem);
 }
 
+//  * Create invoice items list (home page)
 function createItemBlock(data) {
     const invoice_items = document.querySelector('.invoice_items');
 
@@ -290,112 +308,123 @@ function createItemBlock(data) {
         </div>
     </div>`;
 
-
-    if (invoice_items) { invoice_items.innerHTML += item; }
+    if (invoice_items) { 
+        invoice_items.innerHTML += item;
+    }
+    
+    getInvoiceCount();
 }
 
 
 // * Create Details Page
-const container = document.querySelector('.container');
-const query = new URLSearchParams(window.location.search);
-const id = query.get('id');
+function getDetails() {
+    if (id) {
+        const result = data.find(item => {
+            if (item.id == id) {
+                return true
+            }
+        })
+    
+        let tableQty = '';
+    
+        result.items.forEach(el => {
+            tableQty +=
+                `<tr>
+                    <td>${el.item}</td>
+                    <td>${el.qty}</td>
+                    <td>$${Number(el.price).toFixed(2)}</td>
+                    <td>$${Number(el.total).toFixed(2)}</td>
+                </tr>`;
+        })
 
-if (id) {
-    const result = data.find(item => {
-        if (item.id == id) {
-            return true
+        function checkStatus(item) {
+            if(item.status == 'pending') {
+                return `<button class="btn btn-main" id="changeStatus">Mark as Paid</button>`;
+            } else {
+                return '';
+            }
         }
-    })
-
-    let tableQty = '';
-
-    result.items.forEach(el => {
-        tableQty +=
-            `<tr>
-                <td>${el.item}</td>
-                <td>${el.qty}</td>
-                <td>$${Number(el.price).toFixed(2)}</td>
-                <td>$${Number(el.total).toFixed(2)}</td>
-            </tr>`;
-    })
-
-    const details = `
-            <div class="invoice-details">
-                <div class="go-back">
-                    <button class="goback-btn">
-                        <img src="https://invoice-app-flame.vercel.app/assets/icon-arrow-left.svg">
-                        <span>Go Back</span>
-                    </button>
-                </div>
-                <div class="head">
-                    <div class="status">
-                        <p>Status</p>
-                        <div class="status_block ${result.status}">
-                            <span></span>
-                            <p>${result.status}</p>
+    
+        const details = `
+                <div class="invoice-details" data-id="${result.id}">
+                    <div class="go-back">
+                        <button class="goback-btn">
+                            <img src="https://invoice-app-flame.vercel.app/assets/icon-arrow-left.svg">
+                            <span>Go Back</span>
+                        </button>
+                    </div>
+                    <div class="head">
+                        <div class="status">
+                            <p>Status</p>
+                            <div class="status_block ${result.status}">
+                                <span></span>
+                                <p>${result.status}</p>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button class="btn">Edit</button>
+                            <button class="btn btn-danger" id="deleteItem">Delete</button>
+                            ${checkStatus(result)}
                         </div>
                     </div>
-                    <div class="buttons">
-                        <button class="btn">Edit</button>
-                        <button class="btn btn-danger">Delete</button>
-                        <button class="btn btn-main">Mark as Paid</button>
-                    </div>
-                </div>
-                <div class="details-body">
-                    <div class="summary">
-                        <div class="id">
-                            <p> <span>#</span>${result.id}</p>
-                            <p>${result.description}</p>
+                    <div class="details-body">
+                        <div class="summary">
+                            <div class="id">
+                                <p> <span>#</span>${result.id}</p>
+                                <p>${result.description}</p>
+                            </div>
+                            <div class="adress">
+                                <p>${result.senderAddress.street_adress}</p>
+                                <p>${result.senderAddress.city}</p>
+                                <p>${result.senderAddress.post_code}</p>
+                                <p>${result.senderAddress.country}</p>
+                            </div>
                         </div>
-                        <div class="adress">
-                            <p>${result.senderAddress.street_adress}</p>
-                            <p>${result.senderAddress.city}</p>
-                            <p>${result.senderAddress.post_code}</p>
-                            <p>${result.senderAddress.country}</p>
+    
+                        <div class="billing-information">
+                            <div class="info">
+                                <p>Bill To</p>
+                                <h3>${result.userName}</h3>
+                                <p>${result.clientAddress.adress}</p>
+                                <p>${result.clientAddress.city}</p>
+                                <p>${result.clientAddress.post_code}</p>
+                                <p>${result.clientAddress.country}</p>
+                            </div>
+                            <div class="info">
+                                <p>Sent To</p>
+                                <h3>${result.userEmail}</h3>
+                            </div>
+                            <div class="info">
+                                <p>Invoice Date</p>
+                                <h3>${result.invoice_date}</h3>
+                            </div>
+                        </div>
+    
+                        <table class="info-payment">
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>QTY.</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${tableQty}
+                            </tbody>
+                        </table>
+                        <div class="info-subtotal">
+                            <p>Amount Due</p>
+                            <h2>$${Number(result.total).toFixed(2)}</h2>
                         </div>
                     </div>
+                </div>`;
 
-                    <div class="billing-information">
-                        <div class="info">
-                            <p>Bill To</p>
-                            <h3>${result.userName}</h3>
-                            <p>${result.clientAddress.adress}</p>
-                            <p>${result.clientAddress.city}</p>
-                            <p>${result.clientAddress.post_code}</p>
-                            <p>${result.clientAddress.country}</p>
-                        </div>
-                        <div class="info">
-                            <p>Sent To</p>
-                            <h3>${result.userEmail}</h3>
-                        </div>
-                        <div class="info">
-                            <p>Invoice Date</p>
-                            <h3>${result.invoice_date}</h3>
-                        </div>
-                    </div>
-
-                    <table class="info-payment">
-                        <thead>
-                            <tr>
-                                <th>Item Name</th>
-                                <th>QTY.</th>
-                                <th>Price</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${tableQty}
-                        </tbody>
-                    </table>
-                    <div class="info-subtotal">
-                        <p>Amount Due</p>
-                        <h2>$${Number(result.total).toFixed(2)}</h2>
-                    </div>
-                </div>
-            </div>`;
-
-    container.innerHTML = details;
-    goBackUrl();
+        container.innerHTML = details;
+        changeStatus();
+        deleteListItem();
+        goBackUrl();
+    }
 }
 
 function getUrl() {
@@ -404,10 +433,13 @@ function getUrl() {
         item.addEventListener('click', () => {
             const id = item.getAttribute('data-id');
             console.log(id);
-            window.location += `?id=${id}`
+            window.location += `?id=${id}`;
+            getDetails();
         })
     })
 }
+
+getDetails()
 
 // * Go back
 function goBackUrl() {
@@ -415,4 +447,57 @@ function goBackUrl() {
     goBackBtn.addEventListener('click', () => {
         history.back();
     })
+}
+
+// * Mark as paid 
+function changeStatus() {
+    const changeStatusBtn = document.querySelector('#changeStatus');
+    
+    if(changeStatusBtn) {
+        changeStatusBtn.addEventListener('click', function () {
+            const id = this.closest('.invoice-details').getAttribute('data-id');
+            const status_block = document.querySelector('.status_block');
+    
+            const selectedItem = data.find(item => {
+                if(item.id == id ) {
+                    status_block.classList.remove(item.status);
+    
+                    item.status = 'paid';
+                    localStorage.setItem('data', JSON.stringify(data));
+    
+                    status_block.classList.add(item.status);
+                    status_block.querySelector('p').innerText = item.status;
+                    this.remove();
+                }
+            })
+        })
+    }
+}
+
+// * Delete list item
+function deleteListItem() {
+    const baseUrl = window.location.origin;
+    const deleteItemBtn = document.querySelector('#deleteItem');
+
+    deleteItemBtn.addEventListener('click', function () {
+        const id = this.closest('.invoice-details').getAttribute('data-id');
+
+        console.log(id);
+
+        const selectedItem = data.find((item, index) => {
+            if(item.id == id ) {
+                data.splice(index, 1);
+                localStorage.setItem('data', JSON.stringify(data));
+                window.location.href = baseUrl;
+            }
+        })
+    })
+}
+
+// * Total invoice count
+function getInvoiceCount() {
+    const countText = document.querySelector('.invoice-count');
+    const invoiceCount = document.querySelectorAll('.invoice_items .item');
+
+    countText.innerText = invoiceCount.length;
 }
