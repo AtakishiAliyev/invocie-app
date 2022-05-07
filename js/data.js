@@ -31,4 +31,3 @@ const example = [
         "total": 14002.33 
     }, 
 ]
-

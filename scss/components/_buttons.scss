@@ -52,3 +52,24 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.goback-btn {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    color: $clr-white;
+    width:fit-content;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-weight: $fw-700;
+
+    img {
+        width: 8px;
+        margin-right: 8px;
+    }
+
+    &:hover span {
+        color: #888eb0;
+    }
+}

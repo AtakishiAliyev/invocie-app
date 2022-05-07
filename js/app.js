@@ -9,8 +9,8 @@ let cloneItem = document.querySelector(".item-data").cloneNode(true);
 let itemParent = document.querySelector(".item-datalist");
 let addItemBtn = document.querySelector(".add-item");
 let isValid = true;
-
 const data = localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : [];
+
 const date = new Date();
 const today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
 invoice_date.value = today;
@@ -279,7 +279,7 @@ function createItemBlock(data) {
             <p>${data.userName}</p>
         </div>
         <div class="total">
-            <p>$${data.total}</p>
+            <p>$${Number(data.total).toFixed(2)}</p>
         </div>
         <div class="status">
             <div class="status_block ${data.status}">
@@ -295,109 +295,107 @@ function createItemBlock(data) {
 }
 
 
-// ! Create URL 
+// * Create Details Page
 const container = document.querySelector('.container');
 const query = new URLSearchParams(window.location.search);
 const id = query.get('id');
 
 if (id) {
-
     const result = data.find(item => {
         if (item.id == id) {
             return true
         }
     })
 
-    let tableQty;
+    let tableQty = '';
 
-        result.items.forEach(elem=>{
-            tableQty+=
-          `<tr>
-          <td>${elem.item}</td>
-          <td>${elem.qty}</td>
-          <td>$${Number(elem.price).toFixed(2)}</td>
-          <td>$${Number(elem.total).toFixed(2)}</td>
-      </tr>`;
-      })
+    result.items.forEach(el => {
+        tableQty +=
+            `<tr>
+                <td>${el.item}</td>
+                <td>${el.qty}</td>
+                <td>$${Number(el.price).toFixed(2)}</td>
+                <td>$${Number(el.total).toFixed(2)}</td>
+            </tr>`;
+    })
 
-    const details = `<div class="invoice-details">
-            <div class="head">
-                <div class="status">
-                    <p>Status</p>
-                    <div class="status_block ${result.status}">
-                        <span></span>
-                        <p>${result.status}</p>
+    const details = `
+            <div class="invoice-details">
+                <div class="go-back">
+                    <button class="goback-btn">
+                        <img src="https://invoice-app-flame.vercel.app/assets/icon-arrow-left.svg">
+                        <span>Go Back</span>
+                    </button>
+                </div>
+                <div class="head">
+                    <div class="status">
+                        <p>Status</p>
+                        <div class="status_block ${result.status}">
+                            <span></span>
+                            <p>${result.status}</p>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button class="btn">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-main">Mark as Paid</button>
                     </div>
                 </div>
-                <div class="buttons">
-                    <button class="btn">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-main">Mark as Paid</button>
-                </div>
-            </div>
+                <div class="details-body">
+                    <div class="summary">
+                        <div class="id">
+                            <p> <span>#</span>${result.id}</p>
+                            <p>${result.description}</p>
+                        </div>
+                        <div class="adress">
+                            <p>${result.senderAddress.street_adress}</p>
+                            <p>${result.senderAddress.city}</p>
+                            <p>${result.senderAddress.post_code}</p>
+                            <p>${result.senderAddress.country}</p>
+                        </div>
+                    </div>
 
-        <div class="details-body">
-          <div class="info-main">
-            <div>
-              <h5><span class="dies">#</span>${result.id}</h5>
-              <p class="info-invoice-description">${result.description}</p>
-            </div>
-            <div class="info-invoice-addres">
-              <p>${result.senderAddress.street_adress}</p>
-              <p>${result.senderAddress.city}</p>
-              <p>${result.senderAddress.post_code}</p>
-              <p>${result.senderAddress.country}</p>
-            </div>
-          </div>
-          <div class="info-billing">
-            <div class="info-billing-date">
-              <div class="info-date-item">
-                <p>Invoice Date</p>
-                <h3>${result.invoice_date}</h3>
-              </div>
-              <div class="info-date-item">
-                <p>Payment Due</p>
-                <h3>${result.invoice_date}</h3>
-              </div>
-            </div>
-            <div class="info-billing-addres">
-              <p>Bill To</p>
-              <h3>${result.userName}</h3>
-              <div class="billing-adress">
-              <p>${result.clientAddress.adress}</p>
-              <p>${result.clientAddress.city}</p>
-              <p>${result.clientAddress.post_code}</p>
-              <p>${result.clientAddress.country}</p>
-              </div>
-            </div>
-            <div class="info-billing-mail">
-                <p>Sent To</p>
-                <h3>${result.userEmail}</h3>
-            </div>
-          </div>
-          <table class="info-payment">
-              <thead>
-                  <tr>
-                      <th>Item Name</th>
-                      <th>QTY.</th>
-                      <th>Price</th>
-                      <th>Total</th>
-                  </tr>
-              </thead>
-              <tbody>
-                 ${tableQty}
-              </tbody>
-          </table>
-          <div class="info-subtotal">
-              <p>Amount Due</p>
-              <h2>$${Number(result.total).toFixed(2)}</h2>
-          </div>
-        </div>
-        </div>
-        `
-        ;
-        
+                    <div class="billing-information">
+                        <div class="info">
+                            <p>Bill To</p>
+                            <h3>${result.userName}</h3>
+                            <p>${result.clientAddress.adress}</p>
+                            <p>${result.clientAddress.city}</p>
+                            <p>${result.clientAddress.post_code}</p>
+                            <p>${result.clientAddress.country}</p>
+                        </div>
+                        <div class="info">
+                            <p>Sent To</p>
+                            <h3>${result.userEmail}</h3>
+                        </div>
+                        <div class="info">
+                            <p>Invoice Date</p>
+                            <h3>${result.invoice_date}</h3>
+                        </div>
+                    </div>
+
+                    <table class="info-payment">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>QTY.</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableQty}
+                        </tbody>
+                    </table>
+                    <div class="info-subtotal">
+                        <p>Amount Due</p>
+                        <h2>$${Number(result.total).toFixed(2)}</h2>
+                    </div>
+                </div>
+            </div>`;
+
     container.innerHTML = details;
+    goBackUrl();
 }
 
 function getUrl() {
@@ -408,5 +406,13 @@ function getUrl() {
             console.log(id);
             window.location += `?id=${id}`
         })
+    })
+}
+
+// * Go back
+function goBackUrl() {
+    const goBackBtn = document.querySelector('.goback-btn');
+    goBackBtn.addEventListener('click', () => {
+        history.back();
     })
 }
