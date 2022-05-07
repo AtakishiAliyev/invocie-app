@@ -290,6 +290,7 @@ function createItemBlock(data) {
         </div>
     </div>`;
 
+
     if (invoice_items) { invoice_items.innerHTML += item; }
 }
 
@@ -307,6 +308,18 @@ if (id) {
         }
     })
 
+    let tableQty;
+
+        result.items.forEach(elem=>{
+            tableQty+=
+          `<tr>
+          <td>${elem.item}</td>
+          <td>${elem.qty}</td>
+          <td>$${Number(elem.price).toFixed(2)}</td>
+          <td>$${Number(elem.total).toFixed(2)}</td>
+      </tr>`;
+      })
+
     const details = `<div class="invoice-details">
             <div class="head">
                 <div class="status">
@@ -322,7 +335,67 @@ if (id) {
                     <button class="btn btn-main">Mark as Paid</button>
                 </div>
             </div>
-        </div>`;
+
+        <div class="details-body">
+          <div class="info-main">
+            <div>
+              <h5><span class="dies">#</span>${result.id}</h5>
+              <p class="info-invoice-description">${result.description}</p>
+            </div>
+            <div class="info-invoice-addres">
+              <p>${result.senderAddress.street_adress}</p>
+              <p>${result.senderAddress.city}</p>
+              <p>${result.senderAddress.post_code}</p>
+              <p>${result.senderAddress.country}</p>
+            </div>
+          </div>
+          <div class="info-billing">
+            <div class="info-billing-date">
+              <div class="info-date-item">
+                <p>Invoice Date</p>
+                <h3>${result.invoice_date}</h3>
+              </div>
+              <div class="info-date-item">
+                <p>Payment Due</p>
+                <h3>${result.invoice_date}</h3>
+              </div>
+            </div>
+            <div class="info-billing-addres">
+              <p>Bill To</p>
+              <h3>${result.userName}</h3>
+              <div class="billing-adress">
+              <p>${result.clientAddress.adress}</p>
+              <p>${result.clientAddress.city}</p>
+              <p>${result.clientAddress.post_code}</p>
+              <p>${result.clientAddress.country}</p>
+              </div>
+            </div>
+            <div class="info-billing-mail">
+                <p>Sent To</p>
+                <h3>${result.userEmail}</h3>
+            </div>
+          </div>
+          <table class="info-payment">
+              <thead>
+                  <tr>
+                      <th>Item Name</th>
+                      <th>QTY.</th>
+                      <th>Price</th>
+                      <th>Total</th>
+                  </tr>
+              </thead>
+              <tbody>
+                 ${tableQty}
+              </tbody>
+          </table>
+          <div class="info-subtotal">
+              <p>Amount Due</p>
+              <h2>$${Number(result.total).toFixed(2)}</h2>
+          </div>
+        </div>
+        </div>
+        `
+        ;
         
     container.innerHTML = details;
 }
@@ -333,7 +406,7 @@ function getUrl() {
         item.addEventListener('click', () => {
             const id = item.getAttribute('data-id');
             console.log(id);
-            window.location += `?id=${id}`;
+            window.location += `?id=${id}`
         })
     })
 }

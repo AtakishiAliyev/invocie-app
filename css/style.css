@@ -535,6 +535,10 @@ a {
   background: #fff;
 }
 
+.invoice-details {
+  margin-top: 150px;
+}
+
 .invoice-details .head {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -572,5 +576,120 @@ a {
 
 .invoice-details .head .buttons > .btn + .btn {
   margin-left: 15px;
+}
+
+.invoice-details .details-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #1e2139;
+  padding: 3rem;
+}
+
+.invoice-details .details-body p {
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+}
+
+.invoice-details .details-body h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.invoice-details .details-body .info-main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.invoice-details .details-body .info-main .dies {
+  color: #7e88c3;
+}
+
+.invoice-details .details-body .info-billing {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 4rem;
+}
+
+.invoice-details .details-body .info-billing .info-billing-date {
+  margin-right: 8rem;
+}
+
+.invoice-details .details-body .info-billing .info-billing-date h3 {
+  margin-bottom: 3rem;
+}
+
+.invoice-details .details-body .info-billing .info-billing-addres {
+  margin-right: 25%;
+}
+
+.invoice-details .details-body .info-billing .info-billing-addres h3 {
+  margin-bottom: 1.2rem;
+}
+
+.invoice-details .details-body .info-billing .info-billing-addres .billing-adress p {
+  margin-bottom: 0.3rem;
+  font-size: 1.3rem;
+}
+
+.invoice-details .details-body table.info-payment {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+  padding: 3.2rem;
+  background-color: #252945;
+  border-radius: 0.8rem 0.8rem 0 0;
+}
+
+.invoice-details .details-body table.info-payment thead::after {
+  height: 2rem;
+  display: table-row;
+  content: "";
+}
+
+.invoice-details .details-body table.info-payment thead tr th {
+  font-size: 1.3rem;
+}
+
+.invoice-details .details-body table.info-payment tbody tr::after {
+  height: 3.5rem;
+  display: table-row;
+  content: "";
+}
+
+.invoice-details .details-body table.info-payment th:not(:first-child),
+.invoice-details .details-body table.info-payment td:not(:first-child) {
+  text-align: right;
+}
+
+.invoice-details .details-body table.info-payment th:first-child,
+.invoice-details .details-body table.info-payment td:first-child {
+  text-align: left;
+}
+
+.invoice-details .details-body .info-subtotal {
+  padding: 3.2rem 2.4rem;
+  background-color: #0c0e16;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-radius: 0 0 0.8rem 0.8rem;
+}
+
+.invoice-details .details-body .info-subtotal h2 {
+  font-size: 2.5rem;
 }
 /*# sourceMappingURL=style.css.map */
